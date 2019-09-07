@@ -151,6 +151,10 @@ def query_from_db(conn, keywords):
     '''
     query chrome history list from sqlite3 by keywords
     '''
+    if len(keywords) == 0:
+        sql = 'select id, url, title, visit_count, last_visit_time from urls order by visit_count desc, last_visit_time desc, id desc limit 20'
+        return fetchall(conn, sql)
+
     like_keywords = []
     for keyword in keywords:
         like_keywords.append('%' + keyword + '%')
